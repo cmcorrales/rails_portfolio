@@ -3,32 +3,32 @@ class PortfoliosController < ApplicationController
   def index
     @portfolio_items = Portfolio.all
   end
-  #
-  # def show
-  # end
-  #
-  # def new
-  #   @portfolio = Portfolio.new
-  #   render :new
-  # end
-  #
-  # def create
-  #   @portfolio = Portfolio.create(portfolio_params)
-  #   if @portfolio.save?
-  #     redirect_to portfolio_path(@portfolio)
-  #   else
-  #     render :new
-  #   end
-  # end
+
+  def show
+  end
+
+  def new
+    @portfolio_item = Portfolio.new
+    render :new
+  end
+
+  def create
+    @portfolio_item = Portfolio.create(portfolio_params)
+    if @portfolio_item.save
+      redirect_to portfolios_path
+    else
+      render :new
+    end
+  end
   #
   # def edit
   #   render :new
   # end
   #
   # def update
-  #   @portfolio = Portfolio.create(portfolio_params)
-  #   if @portfolio.save?
-  #     redirect_to portfolio_path(@portfolio)
+  #   @portfolio_item = Portfolio.create(portfolio_params)
+  #   if @portfolio_item.save?
+  #     redirect_to portfolio_path(@portfolio_item)
   #   else
   #     render :edit
   #   end
@@ -38,10 +38,10 @@ class PortfoliosController < ApplicationController
   #   redirect_to :portfolios_path
   # end
   #
-  # private
-  #   def portfolio_params
-  #     params.require(:portfolio).permit(:title, :subtitle, :body, :main_image, :thumb_image)
-  #   end
+  private
+    def portfolio_params
+      params.require(:portfolio).permit(:title, :subtitle, :body)
+    end
   #
   #   def get_portfolio_item
   #     @portfolio_item = Portfolio.find(portfolio_params.id)
