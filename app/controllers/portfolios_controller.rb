@@ -1,5 +1,6 @@
 class PortfoliosController < ApplicationController
-  # before_action :get_portfolio_item, only: [:show, :create, :edit, :update, :destroy]
+  before_action :get_portfolio_item, only: [:show, :create, :edit, :update, :destroy]
+
   def index
     @portfolio_items = Portfolio.all
   end
@@ -20,19 +21,18 @@ class PortfoliosController < ApplicationController
       render :new
     end
   end
-  #
-  # def edit
-  #   render :new
-  # end
-  #
-  # def update
-  #   @portfolio_item = Portfolio.create(portfolio_params)
-  #   if @portfolio_item.save?
-  #     redirect_to portfolio_path(@portfolio_item)
-  #   else
-  #     render :edit
-  #   end
-  # end
+
+  def edit
+    render :new
+  end
+
+  def update
+    if @portfolio_item.update(portfolio_params)
+      redirect_to portfolios_path
+    else
+      render :edit
+    end
+  end
   #
   # def destroy
   #   redirect_to :portfolios_path
@@ -42,9 +42,10 @@ class PortfoliosController < ApplicationController
     def portfolio_params
       params.require(:portfolio).permit(:title, :subtitle, :body)
     end
-  #
-  #   def get_portfolio_item
-  #     @portfolio_item = Portfolio.find(portfolio_params.id)
-  #   end
+
+
+    def get_portfolio_item
+      @portfolio_item = Portfolio.find(params[:id])
+    end
 
 end
