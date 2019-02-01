@@ -33,11 +33,12 @@ class PortfoliosController < ApplicationController
       render :edit
     end
   end
-  #
-  # def destroy
-  #   redirect_to :portfolios_path
-  # end
-  #
+
+  def destroy
+    @portfolio_item.destroy
+    redirect_to portfolios_path
+  end
+
   private
     def portfolio_params
       params.require(:portfolio).permit(:title, :subtitle, :body)
